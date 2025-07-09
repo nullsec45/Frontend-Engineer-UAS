@@ -152,50 +152,49 @@ const FormButton = styled.button`
 
 const Form = ({ data, onSubmit }) => {
   const [provinces, setProvinces] = useState(data);
-  const [provinceInput, setProvinceInput] = useState("");
-  const [status, setStatus] = useState("");
-  const [total, setTotal] = useState("");
-  const [isProvinceError, setIsProvinceError] = useState(false);
-  const [isStatusError, setIsStatusError] = useState(false);
-  const [isTotalError, setIsTotalError] = useState(false);
 
-  function handleProvince(event) {
-    event.preventDefault();
-    setProvinceInput(event.target.value);
+  const [formData, setFormData] = useState({
+    status: "",
+    total: "",
+    provinceInput: "",
+  });
+
+  const [formError, setFormError]= useState(({
+    isProvinceError: false,
+    isStatusError: false,
+    isTotalError: false,
+  }));
+
+  const { status, total, provinceInput } = formData;
+  const { isProvinceError, isStatusError, isTotalError } = formError;
+
+  function handleChange(e){
+    const {name,value}=e.target;
+    console.log(name, value);
+
+    setFormData({
+     ...formData,
+     [name]:value
+    });
   }
 
-  function handleStatus(event) {
-    event.preventDefault();
-    setStatus(event.target.value);
-  }
-
-  function handleTotal(event) {
-    event.preventDefault();
-    setTotal(event.target.value);
+   
+  function validate() {
+    const errors = {
+      isProvinceError: provinceInput.trim() === "",
+      isStatusError: status.trim() === "",
+      isTotalError: total.trim() === "",
+    };
+  
+    setFormError(errors);
+  
+    return !Object.values(errors).some(Boolean);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (!status) {
-      setIsStatusError(true);
-    } else {
-      setIsStatusError(false);
-    }
-
-    if (!provinceInput) {
-      setIsProvinceError(true);
-    } else {
-      setIsProvinceError(false);
-    }
-
-    if (!total) {
-      setIsTotalError(true);
-    } else {
-      setIsTotalError(false);
-    }
-
-    onSubmit({ status, total, provinceInput });
+    validate() && onSubmit({ status, total, provinceInput });
   }
 
   useEffect(() => {}, [provinces]);
@@ -213,7 +212,7 @@ const Form = ({ data, onSubmit }) => {
               {/* Province Dropdown */}
               <FormGroup>
                 <FormLabel htmlFor="Provinsi">Provinsi</FormLabel>
-                <FormSelect onChange={handleProvince} value={provinceInput}>
+                <FormSelect onChange={handleChange} value={provinceInput} name="provinceInput">
                   <option value="">Pilih Provinsi</option>
                   {provinces.map((province, index) => (
                     <option key={index} value={province.name}>
@@ -231,11 +230,11 @@ const Form = ({ data, onSubmit }) => {
               {/* Status Dropdown */}
               <FormGroup>
                 <FormLabel htmlFor="Status">Status</FormLabel>
-                <FormSelect onChange={handleStatus} value={status}>
+                <FormSelect onChange={handleChange} value={status} name="status">
                   <option value="">Pilih Status</option>
-                  <option value="positive">Positif</option>
+                  <option value="confirmed">Positif</option>
                   <option value="recovered">Sembuh</option>
-                  <option value="hospitalized">Dirawat</option>
+                  <option value="treatment">Dirawat</option>
                   <option value="death">Meninggal</option>
                 </FormSelect>
                 {isStatusError && (
@@ -254,7 +253,7 @@ const Form = ({ data, onSubmit }) => {
                   id="total"
                   placeholder="Masukkan Jumlah"
                   value={total}
-                  onChange={handleTotal}
+                  onChange={handleChange}
                 />
                 {isTotalError && (
                   <Alert color="red">

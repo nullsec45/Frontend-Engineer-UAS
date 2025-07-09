@@ -3,9 +3,11 @@ import Layout from './Layout/Layout'
 import {Route, Routes} from 'react-router'
 import {Global,Indonesia,Province} from './pages'
 import CovidContext from './Context/CovidContext'
+import data from "./utils/data/provinces";
+
 
 function App() {
-  const [covids, setCovids] = useState([]);
+  const [covids, setCovids] = useState(data.regions);
 
   const contextValue={
     covids,

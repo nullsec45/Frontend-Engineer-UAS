@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Table,Form } from "../components";
-import data from "../utils/data/provinces";
+// import data from "../utils/data/provinces";
+import CovidContext from "../Context/CovidContext";
 
 const Section = styled.section`
   display: flex;
@@ -55,35 +56,38 @@ const Subtitle = styled.h4`
 `;
 
 const Province = () => {
-  const [provinces, setProvinces] = useState(data.regions);
+  // const [provinces, setProvinces] = useState(data.regions);
+  const { covids, setCovids } = useContext(CovidContext);
  
-   const handleSubmit = ({ status, total, provinceInput }) => {
-     const covid = status.toLowerCase();
- 
-     const newProvince = {
-       name: provinceInput,
-       [covid]: total,
-     };
-   
-     
-     const updatedProvinces = provinces.map((province) => {
-       if (province.name === provinceInput) {
-         return { ...province, ...newProvince }; 
-       }
- 
-       return province;
-     });
-   
-     setProvinces(updatedProvinces);
-   };
+  const handleSubmit = ({ status, total, provinceInput }) => {
+    const covid = status.toLowerCase();
+
+  
+    const updatedProvinces = covids.map((province) => {
+    if (province.name === provinceInput) {
+      return {
+        ...province,
+        numbers: {
+          ...province.numbers,
+          [covid]: total,
+        },
+      };
+    }
+    return province;
+  });
+
+  
+    setCovids(updatedProvinces);
+
+  };
 
   return (
     <>
         <Section>
           <Title>Provinces</Title>
           <Subtitle>Data Covid Base On Provinces</Subtitle>
-          <Table data={data.regions} />
-          <Form data={provinces} onSubmit={(res) => handleSubmit(res)} />
+          <Table data={covids} />
+          <Form data={covids} onSubmit={(res) => handleSubmit(res)} />
         </Section>
     </>
       

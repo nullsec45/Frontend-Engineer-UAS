@@ -3,6 +3,7 @@ import axios from "axios";
 import ENDPOINTS from "../utils/constants/endpoints";
 import styled from "styled-components";
 import { Card } from "../components";
+import CardSituationRegions from "../components/Card/CardSituationRegions";
 
 const Container = styled.div`
   margin: 1rem;
@@ -12,6 +13,7 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-top:50px;
 `;
 
 const Title = styled.h1`
@@ -112,6 +114,11 @@ const Global = () => {
             <p>Loading data...</p>
           )}
         </CardsContainer>
+      </Section>
+      <Section>
+        <Title>Situation by Regions</Title>
+        <Subtitle>Data Covid Base On Regions</Subtitle>
+        <CardSituationRegions />
       </Section>
     </>
 
