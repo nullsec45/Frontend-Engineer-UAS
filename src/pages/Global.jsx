@@ -118,7 +118,7 @@ const Global = () => {
       <Section>
         <Title>Situation by Regions</Title>
         <Subtitle>Data Covid Base On Regions</Subtitle>
-        <CardSituationRegions />
+        <CardSituationRegions data={regions} />
       </Section>
     </>
 

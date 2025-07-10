@@ -11,19 +11,6 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const Title = styled.h1`
-  color: #16c79a;
-  font-weight: 600;
-  margin-bottom: 5px;
-  font-size: 28px;
-`;
-
-const Subtitle = styled.p`
-  color: #1982c4;
-  font-size: 14px;
-  margin-top: 0;
-  margin-bottom: 30px;
-`;
 
 const FlexGrid = styled.div`
   display: flex;
@@ -67,6 +54,7 @@ const StatRow = styled.div`
 const StatLabel = styled.span`
   color: #213547;
   font-weight: 500;
+  font-size:18px;
   margin-bottom: 5px; /* Add margin between label and value */
 `;
 
@@ -77,79 +65,43 @@ const StatValueWithIcon = styled.div`
 
 const StatValue = styled.span`
   color: ${(props) => props.color || "#000"};
+  font-size:16px;
   font-weight: 600;
   margin-right: 8px;
 `;
 
 const StatIcon = styled.span`
-  font-size: 16px;
+  font-size: 2rem;
   opacity: 0.5;
 `;
 
-const data = [
-  {
-    region: "Europe",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-  {
-    region: "Western",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-  {
-    region: "Americas",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-  {
-    region: "Asia",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-  {
-    region: "Europe",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-  {
-    region: "Africa",
-    confirmed: "5.005.646",
-    recovered: "5.005.646",
-    death: "5.005.646",
-  },
-];
+const CardSituationRegions = (props) => {
+  const { data } = props;
 
-const CardSituationRegions = () => {
   return (
     <Container>
       <FlexGrid>
         {data.map((item, index) => (
           <Card key={index}>
-            <RegionTitle>{item.region}</RegionTitle>
+            <RegionTitle>{item.name}</RegionTitle>
             <StatRow>
               <StatLabel>Confirmed</StatLabel>
               <StatValueWithIcon>
-                <StatValue color="#16c79a">{item.confirmed}</StatValue>
+                <StatValue color="#16c79a">{item.numbers.confirmed.toLocaleString()}</StatValue>
                 <StatIcon>😷</StatIcon>
               </StatValueWithIcon>
             </StatRow>
             <StatRow>
               <StatLabel>Recovered</StatLabel>
               <StatValueWithIcon>
-                <StatValue color="#1982c4">{item.recovered}</StatValue>
+                <StatValue color="#1982c4">{item.numbers.recovered.toLocaleString()}</StatValue>
                 <StatIcon>😌</StatIcon>
               </StatValueWithIcon>
             </StatRow>
             <StatRow>
               <StatLabel>Death</StatLabel>
               <StatValueWithIcon>
-                <StatValue color="#f06e78">{item.death}</StatValue>
+                <StatValue color="#f06e78">{item.numbers.death.toLocaleString()}</StatValue>
                 <StatIcon>💀</StatIcon>
               </StatValueWithIcon>
             </StatRow>
