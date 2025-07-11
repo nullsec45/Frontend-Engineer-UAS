@@ -1,22 +1,19 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.footer`
   background-color: #06d6a0;
   padding: 1rem;
   color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  /* HAPUS position sticky */
 `;
 
-const Navbar = styled.footer`
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+const Navbar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 const NavbarBrand = styled.div`
@@ -25,27 +22,22 @@ const NavbarBrand = styled.div`
 
 const NavbarList = styled.ul`
   list-style: none;
-  display: none;
-  flex-direction: column;
-  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
   padding-left: 0;
-
-  @media (min-width: 768px) {
-    display: flex !important;
-    flex-direction: row;
-    margin-right: 2rem;
-  }
+  margin-right: 2rem;
 
   li {
-    margin: 0.5rem 0;
-
-    @media (min-width: 768px) {
-      margin: 0 1rem;
-    }
+    margin: 0 1rem;
 
     a {
       text-decoration: none;
       color: white;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `;
@@ -61,16 +53,16 @@ const Footer = () => {
 
         <NavbarList>
           <li>
-            <a href="">Global</a>
+            <a href="/">Global</a>
           </li>
           <li>
-            <a href="">Indonesia</a>
+            <a href="/indonesia">Indonesia</a>
           </li>
           <li>
-            <a href="">Provinsi</a>
+            <a href="/province">Provinsi</a>
           </li>
           <li>
-            <a href="">About</a>
+            <a href="/about">About</a>
           </li>
         </NavbarList>
       </Navbar>
